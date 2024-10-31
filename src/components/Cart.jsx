@@ -177,7 +177,7 @@ export default function Cart({ isOpen, setIsOpen, onCheckout }) {
               </motion.button>
             </motion.div>
           )}
-        </div>
+        </div> 
       </motion.div>
     </motion.div>
   );
