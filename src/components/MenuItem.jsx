@@ -16,10 +16,16 @@ import { useCartStore } from '../store/cartStore';
  * MenuItem component that displays a food menu item card
  * @param {Object} props
  * @param {MenuItemType} props.item - The menu item to display
+ * @param {Function} props.showNotification - Function to show notifications
  * @returns {React.JSX.Element}
  */
-export default function MenuItem({ item }) {
-  const addItem = useCartStore((state) => state.addItem);
+export default function MenuItem({ item, showNotification }) {
+  const addToCart = useCartStore((state) => state.addItem);
+
+  const handleAddToCart = () => {
+    addToCart(item);
+    showNotification(`Added ${item.name} to cart`, 'success');
+  };
 
   return (
     <div className="bg-gradient-to-br from-white to-orange-50/30 rounded-xl shadow-md overflow-hidden menu-item-hover group">
@@ -49,7 +55,7 @@ export default function MenuItem({ item }) {
         </div>
         <p className="text-gray-600 mb-4">{item.description}</p>
         <button
-          onClick={() => addItem({ ...item, quantity: 1 })}
+          onClick={handleAddToCart}
           className="w-full btn-primary flex items-center justify-center gap-2 group"
         >
           <Plus className="h-5 w-5 group-hover:rotate-180 transition-transform duration-300" />

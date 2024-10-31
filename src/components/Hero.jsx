@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ArrowRight, UtensilsCrossed } from 'lucide-react';
+import '../styles/Hero.css';
 
 export default function Hero() {
+  const [showReservationModal, setShowReservationModal] = useState(false);
+
+  const handleReservationClick = () => {
+    setShowReservationModal(true);
+  };
+
   return (
     <div className="relative h-[600px] flex items-center">
       <div 
@@ -33,7 +40,10 @@ export default function Hero() {
             View Menu 
             <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </a>
-          <button className="btn-secondary group text-lg">
+          <button 
+            onClick={handleReservationClick}
+            className="btn-secondary group text-lg"
+          >
             Make a Reservation
             <span className="block text-sm text-orange-500 group-hover:text-orange-600 transition-colors">
               Book your table now
@@ -41,6 +51,29 @@ export default function Hero() {
           </button>
         </div>
       </div>
+
+      {showReservationModal && (
+        <div className="reservation-modal">
+          <div className="modal-content">
+            <button 
+              className="close-btn"
+              onClick={() => setShowReservationModal(false)}
+            >
+              ×
+            </button>
+            <h2>Make a Reservation</h2>
+            <form className="reservation-form">
+              <input type="text" placeholder="Name" required />
+              <input type="email" placeholder="Email" required />
+              <input type="tel" placeholder="Phone" required />
+              <input type="date" required />
+              <input type="time" required />
+              <input type="number" placeholder="Number of Guests" min="1" max="10" required />
+              <button type="submit">Confirm Reservation</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
