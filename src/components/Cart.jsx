@@ -1,17 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Minus, Plus, ShoppingBag, CheckCircle, ArrowLeft } from 'lucide-react';
 import { useCartStore } from '../store/cartStore';
 import { motion, AnimatePresence } from 'framer-motion';
 import Checkout from './Checkout';
-
-/**
- * @typedef {Object} CartItem
- * @property {(string|number)} id - The unique identifier of the item
- * @property {string} name - The name of the item
- * @property {number} price - The price of the item
- * @property {number} quantity - The quantity of the item in cart
- * @property {string} image - The URL of the item's image
- */
 
 /**
  * Cart component that displays the shopping cart contents
@@ -26,6 +17,8 @@ export default function Cart({ isOpen, setIsOpen, onCheckout }) {
   const { items, total, removeItem, updateQuantity, clearCart } = useCartStore();
   const [isClearing, setIsClearing] = useState(false);
   const [showCheckout, setShowCheckout] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const userId = 'user123'; // Replace with actual user ID from your auth context or state
 
   const handleProceedToCheckout = () => {
     setShowCheckout(true);
@@ -34,13 +27,62 @@ export default function Cart({ isOpen, setIsOpen, onCheckout }) {
     }
   };
 
-  const handleClearCart = () => {
+  const handleClearCart = async () => {
     setIsClearing(true);
-    setTimeout(() => {
+    try {
+      await fetch(`/api/cart/clear/${userId}`, { method: 'DELETE' });
       clearCart();
+    } catch (error) {
+      console.error('Error clearing cart:', error);
+    } finally {
       setIsClearing(false);
-    }, 300);
+    }
   };
+
+  const handleRemoveItem = async (itemId) => {
+    try {
+      await fetch(`/api/cart/remove/${userId}/${itemId}`, { method: 'DELETE' });
+      removeItem(itemId);
+    } catch (error) {
+      console.error('Error removing item:', error);
+    }
+  };
+
+  const handleUpdateQuantity = async (itemId, quantity) => {
+    setLoading(true);
+    try {
+      await fetch(`/api/cart/add`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, itemId, quantity }),
+      });
+      updateQuantity(itemId, quantity);
+    } catch (error) {
+      console.error('Error updating quantity:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const fetchCart = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(`/api/cart/${userId}`);
+        const data = await response.json();
+        // Assuming you have a method to set items in your store
+        // setItems(data.items);
+      } catch (error) {
+        console.error('Error fetching cart:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (isOpen) {
+      fetchCart();
+    }
+  }, [isOpen, userId]);
 
   if (!isOpen) return null;
 
@@ -76,7 +118,7 @@ export default function Cart({ isOpen, setIsOpen, onCheckout }) {
                     onClick={handleClearCart}
                     className="text-sm text-red-500 hover:bg-red-50 px-3 py-1 rounded-full transition-colors"
                   >
-                    Clear Cart
+                    {isClearing ? 'Clearing...' : 'Clear Cart'}
                   </motion.button>
                 )}
                 <button
@@ -126,7 +168,7 @@ export default function Cart({ isOpen, setIsOpen, onCheckout }) {
                         <div className="flex items-center gap-3 mt-2">
                           <motion.button
                             whileTap={{ scale: 0.9 }}
-                            onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
+                            onClick={() => handleUpdateQuantity(item.id, Math.max(1, item.quantity - 1))}
                             className="p-1 rounded-full hover:bg-gray-100 transition-colors"
                           >
                             <Minus className="h-4 w-4" />
@@ -134,7 +176,7 @@ export default function Cart({ isOpen, setIsOpen, onCheckout }) {
                           <span className="font-medium w-8 text-center">{item.quantity}</span>
                           <motion.button
                             whileTap={{ scale: 0.9 }}
-                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                            onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)}
                             className="p-1 rounded-full hover:bg-gray-100 transition-colors"
                           >
                             <Plus className="h-4 w-4" />
@@ -144,7 +186,7 @@ export default function Cart({ isOpen, setIsOpen, onCheckout }) {
                       <motion.button
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
-                        onClick={() => removeItem(item.id)}
+                        onClick={() => handleRemoveItem(item.id)}
                         className="p-2 rounded-full hover:bg-red-50 text-gray-400 hover:text-red-500 transition-colors"
                       >
                         <X className="h-5 w-5" />
@@ -198,6 +240,7 @@ export default function Cart({ isOpen, setIsOpen, onCheckout }) {
             <div className="pt-16">
               <Checkout 
                 totalAmount={total} 
+                cartItems={items} 
                 onClose={() => {
                   setShowCheckout(false);
                   setIsOpen(false);
