@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { X, Minus, Plus, ShoppingBag, CheckCircle } from 'lucide-react';
+import { X, Minus, Plus, ShoppingBag, CheckCircle, ArrowLeft } from 'lucide-react';
 import { useCartStore } from '../store/cartStore';
 import { motion, AnimatePresence } from 'framer-motion';
+import Checkout from './Checkout';
 
 /**
  * @typedef {Object} CartItem
@@ -24,9 +25,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function Cart({ isOpen, setIsOpen, onCheckout }) {
   const { items, total, removeItem, updateQuantity, clearCart } = useCartStore();
   const [isClearing, setIsClearing] = useState(false);
+  const [showCheckout, setShowCheckout] = useState(false);
 
   const handleProceedToCheckout = () => {
-    setIsOpen(false);
+    setShowCheckout(true);
     if (onCheckout) {
       onCheckout();
     }
@@ -179,6 +181,32 @@ export default function Cart({ isOpen, setIsOpen, onCheckout }) {
           )}
         </div> 
       </motion.div>
+      {showCheckout && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          className="fixed inset-0 bg-white z-[60] overflow-y-auto"
+        >
+          <div className="min-h-screen p-4">
+            <button
+              onClick={() => setShowCheckout(false)}
+              className="fixed top-4 left-4 p-2 rounded-full hover:bg-gray-100"
+            >
+              <ArrowLeft className="h-6 w-6" />
+            </button>
+            <div className="pt-16">
+              <Checkout 
+                totalAmount={total} 
+                onClose={() => {
+                  setShowCheckout(false);
+                  setIsOpen(false);
+                }}
+              />
+            </div>
+          </div>
+        </motion.div>
+      )}
     </motion.div>
   );
 }
