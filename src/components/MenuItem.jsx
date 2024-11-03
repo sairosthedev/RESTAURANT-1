@@ -10,6 +10,7 @@ import { useCartStore } from '../store/cartStore';
  * @property {number} price - Price of the menu item
  * @property {string} image - URL of the menu item's image
  * @property {string} category - Category of the menu item
+ * @property {string} prepTime - Preparation time for the menu item
  */
 
 /**
@@ -20,8 +21,10 @@ import { useCartStore } from '../store/cartStore';
  * @returns {React.JSX.Element}
  */
 export default function MenuItem({ item, showNotification }) {
+  // Hooks
   const addToCart = useCartStore((state) => state.addItem);
 
+  // Event Handlers
   const handleAddToCart = () => {
     addToCart(item);
     showNotification(`Added ${item.name} to cart`, 'success');
@@ -29,22 +32,27 @@ export default function MenuItem({ item, showNotification }) {
 
   return (
     <div className="bg-gradient-to-br from-white to-orange-50/30 rounded-xl shadow-md overflow-hidden menu-item-hover group">
+      {/* Image Section */}
       <div className="relative">
         <img
           src={item.image}
           alt={item.name}
           className="w-full h-48 object-cover transform group-hover:scale-105 transition-transform duration-500"
         />
+        {/* Badges */}
         <div className="menu-item-badge">
           <Star className="h-4 w-4 fill-current" />
-          4.8
+          <span>4.8</span>
         </div>
         <div className="menu-item-time">
           <Clock className="h-4 w-4" />
-          15-20 min
+          <span>{item.prepTime}</span>
         </div>
       </div>
+
+      {/* Content Section */}
       <div className="p-6">
+        {/* Header */}
         <div className="flex justify-between items-start mb-2">
           <h3 className="font-bold text-xl text-gray-900 group-hover:text-orange-600 transition-colors">
             {item.name}
@@ -53,7 +61,13 @@ export default function MenuItem({ item, showNotification }) {
             ${item.price.toFixed(2)}
           </span>
         </div>
-        <p className="text-gray-600 mb-4">{item.description}</p>
+
+        {/* Description */}
+        <p className="text-gray-600 mb-4">
+          {item.description}
+        </p>
+
+        {/* Action Button */}
         <button
           onClick={handleAddToCart}
           className="w-full btn-primary flex items-center justify-center gap-2 group"
