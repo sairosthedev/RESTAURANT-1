@@ -16,83 +16,110 @@
 export const menuItems = [
   {
     id: '1',
-    name: 'Signature Bucket',
-    description: 'Our famous crispy fried chicken bucket with special seasoning',
-    price: 24.99,
-    image: 'https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&w=800&q=80',
+    name: 'Sadza ne Nyama',
+    description: 'Traditional Zimbabwean sadza served with tender beef stew, mixed vegetables and gravy',
+    price: 15.99,
+    image: '/images/menu/sadza-ne-nyama.jpg',
     category: 'mains',
     prepTime: '15-20 min'
   },
   {
     id: '2',
-    name: 'Peri-Peri Wings',
-    description: 'Spicy chicken wings with African Peri-Peri sauce',
-    price: 12.99,
-    image: 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=800&q=80',
-    category: 'mains',
-    prepTime: '20-30 min'
+    name: 'Mapopo Candy',
+    description: 'Traditional Zimbabwean sweet treat made from papaya/pawpaw',
+    price: 4.99,
+    image: '/images/menu/mapopo-candy.jpg',
+    category: 'desserts',
+    prepTime: '5 min'
   },
   {
     id: '3',
-    name: 'Sadza Platter',
-    description: 'Traditional Zimbabwean cornmeal with grilled chicken',
-    price: 15.99,
-    image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80',
-    category: 'mains',
+    name: 'Muriwo une Dovi',
+    description: 'Fresh vegetables cooked with rich homemade peanut butter sauce',
+    price: 8.99,
+    image: '/images/menu/muriwo-une-dovi.jpg',
+    category: 'sides',
     prepTime: '15-20 min'
   },
   {
     id: '4',
-    name: 'African Coleslaw',
-    description: 'Fresh cabbage slaw with African spices',
-    price: 4.99,
-    image: 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80',
-    category: 'sides',
-    prepTime: '5 min'
+    name: 'Mazoe Orange Crush',
+    description: 'Iconic Zimbabwean orange drink, perfectly chilled and refreshing',
+    price: 2.99,
+    image: '/images/menu/mazoe-orange.jpg',
+    category: 'drinks',
+    prepTime: '2 min'
   },
   {
     id: '5',
-    name: 'Mazoe Orange',
-    description: 'Classic Zimbabwean orange drink',
-    price: 2.99,
-    image: 'https://www.freshproducemea.com/wp-content/uploads/2024/08/Mazoe-Zim.jpg',
-    category: 'drinks',
-    prepTime: '5-6 min'
+    name: 'Sadza ne Hove',
+    description: 'Slow-roasted fish with fresh green vegetables and sadza',
+    price: 13.99,
+    image: '/images/menu/fish-sadza.jpg',
+    category: 'mains',
+    prepTime: '25-30 min'
   },
   {
     id: '6',
-    name: 'Chocolate Lava Cake',
-    description: 'Warm chocolate cake with a molten center, served with vanilla ice cream',
-    price: 8.99,
-    image: 'https://images.unsplash.com/photo-1624353365286-3f8d62daad51?auto=format&fit=crop&w=800&q=80',
-    category: 'desserts',
-    prepTime: '15-20 min'
+    name: 'Zim-Style Chicken',
+    description: 'Grilled chicken marinated in traditional Zimbabwean spices',
+    price: 14.99,
+    image: '/images/menu/zim-chicken.jpg',
+    category: 'mains',
+    prepTime: '20-25 min'
   },
   {
     id: '7',
-    name: 'New York Cheesecake',
-    description: 'Classic creamy cheesecake with graham cracker crust',
-    price: 7.99,
-    image: 'https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=800&q=80',
-    category: 'desserts',
-    prepTime: '15-20 min'
+    name: 'Maheu',
+    description: 'Traditional non-alcoholic fermented maize drink',
+    price: 2.49,
+    image: '/images/menu/maheu.jpg',
+    category: 'drinks',
+    prepTime: '5 min'
   },
   {
     id: '8',
-    name: 'Tiramisu',
-    description: 'Italian coffee-flavored dessert with layers of mascarpone and ladyfingers',
-    price: 8.49,
-    image: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80',
-    category: 'desserts',
-    prepTime: '15-20 min'
+    name: 'Rupiza',
+    description: 'Traditional Zimbabwean pumpkin leaves with peanut butter',
+    price: 7.99,
+    image: '/images/menu/rupiza.jpg',
+    category: 'sides',
+    prepTime: '15 min'
   },
   {
     id: '9',
-    name: 'Apple Pie',
-    description: 'Homemade apple pie with a flaky crust, served warm with ice cream',
-    price: 6.99,
-    image: 'https://images.unsplash.com/photo-1621743478914-cc8a86d7e7b5?auto=format&fit=crop&w=800&q=80',
-    category: 'desserts',
+    name: 'Chimukuyu',
+    description: 'Traditional dried vegetables with peanut butter',
+    price: 8.49,
+    image: '/images/menu/chimukuyu.jpg',
+    category: 'sides',
+    prepTime: '15 min'
+  },
+  {
+    id: '10',
+    name: 'Madora',
+    description: 'Traditional Zimbabwean delicacy of fried mopane worms',
+    price: 11.99,
+    image: '/images/menu/madora.jpg',
+    category: 'mains',
     prepTime: '15-20 min'
+  },
+  {
+    id: '11',
+    name: 'Nhopi',
+    description: 'Traditional pumpkin dish with peanut butter and brown sugar',
+    price: 6.99,
+    image: '/images/menu/nhopi.jpg',
+    category: 'desserts',
+    prepTime: '20 min'
+  },
+  {
+    id: '12',
+    name: 'Zim Hot Tea',
+    description: 'Traditional Zimbabwean tea served with sugar',
+    price: 2.99,
+    image: '/images/menu/zim-tea.jpg',
+    category: 'drinks',
+    prepTime: '5 min'
   }
 ];
