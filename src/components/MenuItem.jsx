@@ -73,7 +73,7 @@ export default function MenuItem({ item, showNotification }) {
           className="w-full btn-primary flex items-center justify-center gap-2 group"
         >
           <Plus className="h-5 w-5 group-hover:rotate-180 transition-transform duration-300" />
-          Add to Cart
+          Add to Cart 
         </button>
       </div>
     </div>
