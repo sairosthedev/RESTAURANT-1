@@ -225,6 +225,7 @@ const PaymentForm = ({ totalAmount, onSuccess }) => {
               name="name"
               value={formData.name}
               onChange={handleInputChange}
+              placeholder="Mdala Sairos"
               className={`mt-1 block w-full rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 ${
                 errors.name ? 'border-red-500' : 'border-gray-300'
               }`}

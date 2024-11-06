@@ -1,20 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ArrowRight, UtensilsCrossed } from 'lucide-react';
-import '../styles/Hero.css';
 
 export default function Hero() {
-  const [showReservationModal, setShowReservationModal] = useState(false);
-
-  const handleReservationClick = () => {
-    setShowReservationModal(true);
-  };
-
   return (
     <div className="relative h-[600px] flex items-center">
       <div 
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: 'url(https://images.unsplash.com/photo-1532635241-17e820acc59f?auto=format&fit=crop&w=2000&q=80)',
+          backgroundImage: 'url(https://images.unsplash.com/photo-1687422808248-f807f4ea2a2e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)',
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}
@@ -40,10 +33,7 @@ export default function Hero() {
             View Menu 
             <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </a>
-          <button 
-            onClick={handleReservationClick}
-            className="btn-secondary group text-lg"
-          >
+          <button className="btn-secondary group text-lg">
             Make a Reservation
             <span className="block text-sm text-orange-500 group-hover:text-orange-600 transition-colors">
               Book your table now
@@ -51,29 +41,6 @@ export default function Hero() {
           </button>
         </div>
       </div>
-
-      {showReservationModal && (
-        <div className="reservation-modal">
-          <div className="modal-content">
-            <button 
-              className="close-btn"
-              onClick={() => setShowReservationModal(false)}
-            >
-              ×
-            </button>
-            <h2>Make a Reservation</h2>
-            <form className="reservation-form">
-              <input type="text" placeholder="Name" required />
-              <input type="email" placeholder="Email" required />
-              <input type="tel" placeholder="Phone" required />
-              <input type="date" required />
-              <input type="time" required />
-              <input type="number" placeholder="Number of Guests" min="1" max="10" required />
-              <button type="submit">Confirm Reservation</button>
-            </form>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
