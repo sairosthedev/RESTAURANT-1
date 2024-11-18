@@ -2,6 +2,7 @@ import React from 'react';
 import { Plus, Star, Clock } from 'lucide-react';
 import { useCartStore } from '../store/cartStore';
 
+
 /**
  * @typedef {Object} MenuItemType
  * @property {string} id - Unique identifier for the menu item
